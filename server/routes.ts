@@ -54,7 +54,7 @@ export async function registerRoutes(
   });
 
   app.get(api.spaces.get.path, async (req, res) => {
-    const space = await storage.getSpaceBySlug(req.params.slug);
+    const space = await storage.getSpaceBySlug(req.params.slug as string);
     if (!space) {
       return res.status(404).json({ message: "Space not found" });
     }
@@ -68,7 +68,7 @@ export async function registerRoutes(
   });
 
   app.get(api.stories.get.path, async (req, res) => {
-    const story = await storage.getStoryBySlug(req.params.slug);
+    const story = await storage.getStoryBySlug(req.params.slug as string);
     if (!story) {
       return res.status(404).json({ message: "Story not found" });
     }

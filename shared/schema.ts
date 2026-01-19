@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { pgTable, text, serial, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -23,6 +24,7 @@ export const insertInquirySchema = createInsertSchema(inquiries).omit({
 
 export type Inquiry = typeof inquiries.$inferSelect;
 export type InsertInquiry = z.infer<typeof insertInquirySchema>;
+export type InquiryInput = InsertInquiry;
 
 // === SUBSCRIBERS ===
 export const subscribers = pgTable("subscribers", {
