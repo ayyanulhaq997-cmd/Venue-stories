@@ -5,30 +5,30 @@
 @tailwind utilities;
 
 :root {
-  /* Luxury Palette: Cream, Gold, Charcoal, White */
-  --background: 40 20% 98%;      /* Soft Cream */
-  --foreground: 220 10% 10%;     /* Soft Charcoal */
+  /* Luxury Dark Palette: Deep Charcoal, Gold, Cream */
+  --background: 220 15% 7%;      /* Deep Dark Charcoal */
+  --foreground: 40 20% 98%;      /* Off-White/Cream text */
   
-  --primary: 35 30% 35%;         /* Bronze/Old Gold */
-  --primary-foreground: 40 20% 98%;
+  --primary: 35 40% 55%;         /* Muted Gold */
+  --primary-foreground: 220 15% 7%;
   
-  --secondary: 40 10% 90%;       /* Light Beige */
-  --secondary-foreground: 220 10% 10%;
+  --secondary: 220 15% 12%;      /* Slightly lighter charcoal */
+  --secondary-foreground: 40 20% 98%;
   
-  --muted: 40 10% 94%;
-  --muted-foreground: 220 10% 40%;
+  --muted: 220 15% 15%;
+  --muted-foreground: 40 10% 70%;
   
-  --accent: 35 40% 50%;          /* Brighter Gold for highlights */
-  --accent-foreground: 255 255 255;
+  --accent: 35 45% 45%;          /* Deeper Gold for interactive elements */
+  --accent-foreground: 220 15% 7%;
   
-  --destructive: 0 84% 60%;
+  --destructive: 0 60% 50%;
   --destructive-foreground: 210 40% 98%;
   
-  --border: 35 15% 85%;
-  --input: 35 15% 85%;
-  --ring: 35 30% 35%;
+  --border: 220 15% 20%;
+  --input: 220 15% 20%;
+  --ring: 35 40% 55%;
   
-  --radius: 0px; /* Sharp corners for luxury feel */
+  --radius: 0px; /* Sharp corners for premium architectural feel */
 
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Montserrat', sans-serif;
@@ -43,7 +43,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif tracking-wide;
+    @apply font-serif tracking-[0.05em] uppercase;
   }
 
   /* Smooth scrolling */
@@ -61,16 +61,45 @@
   }
   
   .container-padding {
-    @apply px-4 sm:px-6 lg:px-8;
+    @apply px-4 sm:px-6 lg:px-12;
+  }
+
+  /* Luxury Gold Border Glow */
+  .gold-border {
+    @apply border border-primary/30 hover:border-primary/60 transition-colors duration-500;
+  }
+
+  /* Refined Glassmorphism */
+  .glass-card {
+    @apply bg-white/[0.03] backdrop-blur-md border border-white/10;
   }
 
   /* Custom selection color */
   ::selection {
-    @apply bg-primary/20 text-primary;
+    @apply bg-primary/30 text-primary-foreground;
+  }
+
+  /* Letter spacing for luxury feel */
+  .tracking-luxury {
+    letter-spacing: 0.2em;
   }
 }
 
-/* Luxury page transition base */
+/* Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Luxury page transition */
 .page-transition {
-  @apply transition-opacity duration-500 ease-in-out;
+  @apply transition-all duration-700 ease-in-out;
 }

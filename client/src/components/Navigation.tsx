@@ -25,40 +25,50 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => setIsOpen(false), [location]);
 
   return (
     <nav 
       className={cn(
-        "fixed w-full z-50 transition-all duration-300 border-b border-transparent",
-        scrolled ? "bg-background/95 backdrop-blur-md border-border/40 py-4 shadow-sm" : "bg-transparent py-6"
+        "fixed w-full z-50 transition-all duration-500",
+        scrolled 
+          ? "bg-background/90 backdrop-blur-xl border-b border-primary/20 py-4 shadow-2xl" 
+          : "bg-transparent py-8"
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        <Link href="/" className="font-serif text-2xl font-semibold tracking-widest uppercase hover:opacity-80 transition-opacity">
-          Private Dining
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
+        <Link href="/" className="group flex flex-col items-center">
+          <span className="font-serif text-2xl tracking-[0.3em] uppercase group-hover:text-primary transition-colors duration-500">
+            Private Dining
+          </span>
+          <span className="text-[10px] tracking-[0.5em] uppercase text-primary/60 group-hover:text-primary transition-colors duration-500">
+            London
+          </span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center space-x-10">
           {links.map((link) => (
             <Link 
               key={link.href} 
               href={link.href} 
               className={cn(
-                "text-sm font-medium tracking-wide uppercase transition-colors hover:text-primary",
-                location === link.href ? "text-primary border-b border-primary" : "text-muted-foreground"
+                "text-[11px] font-medium tracking-[0.2em] uppercase transition-all duration-300 hover:text-primary relative group",
+                location === link.href ? "text-primary" : "text-foreground/70"
               )}
             >
               {link.label}
+              <span className={cn(
+                "absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full",
+                location === link.href && "w-full"
+              )} />
             </Link>
           ))}
         </div>
 
         {/* Mobile Toggle */}
         <button 
-          className="lg:hidden p-2 text-foreground"
+          className="lg:hidden p-2 text-primary hover:text-white transition-colors"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -66,24 +76,32 @@ export function Navigation() {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-background border-b border-border shadow-lg animate-in slide-in-from-top-5">
-          <div className="flex flex-col p-6 space-y-4">
-            {links.map((link) => (
-              <Link 
-                key={link.href} 
-                href={link.href} 
-                className={cn(
-                  "text-lg font-serif tracking-wide hover:text-primary",
-                  location === link.href ? "text-primary" : "text-foreground"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+      <div className={cn(
+        "lg:hidden fixed inset-0 bg-background/98 backdrop-blur-2xl transition-all duration-500 ease-in-out z-[60]",
+        isOpen ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-full"
+      )}>
+        <div className="flex flex-col items-center justify-center h-full space-y-8 relative">
+          <button 
+            className="absolute top-8 right-8 p-2 text-primary"
+            onClick={() => setIsOpen(false)}
+          >
+            <X className="w-8 h-8" />
+          </button>
+          {links.map((link, i) => (
+            <Link 
+              key={link.href} 
+              href={link.href} 
+              className={cn(
+                "text-2xl font-serif tracking-[0.2em] uppercase hover:text-primary transition-all duration-300",
+                location === link.href ? "text-primary scale-110" : "text-foreground"
+              )}
+              style={{ transitionDelay: `${i * 50}ms` }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
-      )}
+      </div>
     </nav>
   );
 }
